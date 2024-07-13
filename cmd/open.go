@@ -35,6 +35,7 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// openCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	openCmd.Flags().StringP("unzipopen", "uzo", "", "Unzip and open file")
 }
 
 func openDirectoryInVSCode() error {
