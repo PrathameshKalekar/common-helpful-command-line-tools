@@ -17,8 +17,18 @@ import (
 
 // openCmd represents the open command
 var openCmd = &cobra.Command{
-	Use:   "open",
+	Use:   "open -u(optional if the there id no unzipping process) [unzip directory name if applicable]",
 	Short: "Open current directory in VS Code",
+	Long: `This command opens current directoey in VS Code. 
+For example:
+
+pralex open
+
+if unzip process is there 
+
+pralex open -u xyz.zip
+
+This will create a directory named 'mydirectory'.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		uzo, _ := cmd.Flags().GetString("unzipandopen")
 		if uzo != "" {
