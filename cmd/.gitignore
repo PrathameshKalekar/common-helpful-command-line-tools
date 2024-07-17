@@ -1,0 +1,8 @@
+# Ignore go.mod file
+go.mod
+
+# Ignore go.sum file
+go.sum
+
+# Ignore LICENSE file
+LICENSE
