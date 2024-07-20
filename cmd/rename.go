@@ -1,11 +1,12 @@
 /*
 Copyright © 2024 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
 import (
 	"fmt"
+	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -13,28 +14,31 @@ import (
 // renameCmd represents the rename command
 var renameCmd = &cobra.Command{
 	Use:   "rename",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "rename a file on the current location",
+	Long: `This command renames a file  with the specified name.
+For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+pralex rename main.go rename.go    # renames main.go into rename.go `,
+	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("rename called")
+		fileName := args[0]
+		renameName := args[1]
+		if _, err := os.Stat(fileName); err != nil {
+			fmt.Printf("The given file with filename %s does not exist or provide the file extention", fileName)
+			return
+		} else {
+			if strings.Contains(renameName, ".") {
+				os.Rename(fileName, renameName)
+				fmt.Printf("file %s is renamed to %s", fileName, renameName)
+				return
+			}
+			fmt.Printf("%s is not a valid file name provide proper name with extention", renameName)
+			return
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(renameCmd)
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// renameCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// renameCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
