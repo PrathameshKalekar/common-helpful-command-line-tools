@@ -20,7 +20,18 @@ pralex make .gitignore     # Creates a file named '.gitignore'
 pralex make .env           # Creates a file named '.env'`,
 	Run: func(cmd *cobra.Command, args []string) {
 		name := args[0]
+		makeFileOrDirectory(name)
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(makeCmd)
+}
+
+func makeFileOrDirectory(name string) {
+	if _, err := os.Stat(name); err != nil {
 		if strings.Contains(name, ".") {
+
 			file, err := os.Create(name)
 			if err != nil {
 				fmt.Printf("error while creating file : %s", err)
@@ -28,6 +39,7 @@ pralex make .env           # Creates a file named '.env'`,
 			}
 			defer file.Close()
 			fmt.Printf("File created named %s \n", name)
+
 		} else {
 			if err := os.Mkdir(name, 0755); err != nil {
 				fmt.Printf("Error creating directory %s: %v\n", name, err)
@@ -35,9 +47,11 @@ pralex make .env           # Creates a file named '.env'`,
 				fmt.Printf("Directory %s created successfully\n", name)
 			}
 		}
-	},
-}
-
-func init() {
-	rootCmd.AddCommand(makeCmd)
+	} else {
+		if strings.Contains(name, ".") {
+			fmt.Println("File already exist")
+		} else {
+			fmt.Println("Directory already exist")
+		}
+	}
 }
