@@ -44,7 +44,7 @@ func init() {
 // validateOldName checks if the old file or folder exists
 func validateOldName(name string) error {
 	if _, err := os.Stat(name); os.IsNotExist(err) {
-		return fmt.Errorf("The given file or folder with name %s does not exist", name)
+		return fmt.Errorf("the given file or folder with name %s does not exist", name)
 	}
 	return nil
 }
@@ -54,13 +54,13 @@ func renameItem(oldName, newName string) error {
 	if strings.Contains(newName, ".") {
 		// Rename the file
 		if err := os.Rename(oldName, newName); err != nil {
-			return fmt.Errorf("Error renaming file %s to %s: %v", oldName, newName, err)
+			return fmt.Errorf("error renaming file %s to %s: %v", oldName, newName, err)
 		}
 		fmt.Printf("File %s is renamed to %s\n", oldName, newName)
 	} else {
 		// Rename the folder
 		if err := os.Rename(oldName, newName); err != nil {
-			return fmt.Errorf("Error renaming folder %s to %s: %v", oldName, newName, err)
+			return fmt.Errorf("error renaming folder %s to %s: %v", oldName, newName, err)
 		}
 		fmt.Printf("Folder %s is renamed to %s\n", oldName, newName)
 	}
