@@ -4,5 +4,4 @@ go.mod
 # Ignore go.sum file
 go.sum
 
-# Ignore LICENSE file
-LICENSE
+
